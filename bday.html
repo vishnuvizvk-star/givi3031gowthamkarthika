@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Bday Thango</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      overflow-x: hidden;
+      background-image: url('https://c4.wallpaperflare.com/wallpaper/921/272/995/abstraction-hearts-pink-background-wallpaper-preview.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(1.1) contrast(1.1);
+      color: #fff;
+    }
+
+    .page {
+      display: none;
+      padding: 30px 10px;
+      background: rgba(255, 192, 203, 0.3);
+      min-height: 100vh;
+      z-index: 2;
+      position: relative;
+    }
+
+    .active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .input-section input {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      display: block;
+      margin: 10px auto;
+    }
+
+    .emoji {
+      position: absolute;
+      animation: gentleFall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gentleFall {
+      0% { top: -50px; opacity: 1; transform: translateX(0); }
+      100% { top: 100vh; opacity: 0.5; transform: translateX(5px); }
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .gallery img {
+      width: 80%;
+      max-width: 400px;
+      border-radius: 20px;
+      border: 3px solid #fff;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 20px;
+      background: linear-gradient(45deg, #ff4da6, #ff6666);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      margin-top: 30px;
+      box-shadow: 0 0 20px #ff99cc;
+      animation: blink 1.5s infinite;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover { transform: scale(1.05); }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      font-size: 28px;
+      color: #ff3399;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255,105,180,0.6);
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-size: 2.8em;
+      text-shadow: 2px 2px 4px #ff3399;
+      text-align: center;
+    }
+
+    .qa-section {
+      max-width: 500px;
+      margin: 20px auto;
+      width: 90%;
+    }
+
+    .qa-block {
+      background: rgba(255,255,255,0.2);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255,105,180,0.3);
+      margin-bottom: 20px;
+      color: white;
+      display: none;
+    }
+
+    .qa-block.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .starry-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+      opacity: 0.8;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="starry-bg" id="starContainer"></div>
+  <div id="emojiContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></div>
+
+  <!-- Page 1 -->
+  <div id="page1" class="page active">
+    <h1>En uyir yaru theriyuma? 💗</h1>
+    <div class="input-section">
+      <input type="text" id="nameInput" placeholder="Un peru sollu thoppakutty..." />
+      <button onclick="checkName()">💌</button>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div id="page2" class="page">
+    <h1>🎉 Iniya Pirandha Naal Valthukkal thangamaee 😍</h1>
+    <button onclick="goToPage('page3')">💌</button>
+  </div>
+
+  <!-- Page 3 -->
+  <div id="page3" class="page">
+    <div class="gallery">
+      <img src="img1.jpeg" />
+      <img src="img2.jpeg" />
+      <img src="img3.jpeg" />
+      <img src="img4.jpeg" />
+      <img src="img5.jpeg" />
+    </div>
+    <button onclick="goToPage('page4')">💌</button>
+  </div>
+
+  <!-- Page 4 - Q&A -->
+  <div id="page4" class="page">
+    <h2>💘 Sariyana Badil Sollu Kaadhaley 💘</h2>
+    <div class="qa-section">
+      <div id="q1" class="qa-block active">
+        <p><strong>Q1:</strong> Namma love start aanadhu eppo? 💞</p>
+        <label><input type="radio" name="q1" value="april"> April</label>
+        <label><input type="radio" name="q1" value="june"> June</label>
+        <label><input type="radio" name="q1" value="december"> December</label>
+        <button onclick="checkQA(1)">Next</button>
+      </div>
+      <div id="q2" class="qa-block">
+        <p><strong>Q2:</strong> Namma meet panna epovume seirathu first thing enna? 😚</p>
+        <label><input type="radio" name="q2" value="kiss"> Kiss</label>
+        <label><input type="radio" name="q2" value="hug"> Hug</label>
+        <button onclick="checkQA(2)">Next</button>
+      </div>
+      <div id="q3" class="qa-block">
+        <p><strong>Q3:</strong> Namma first kiss eppo? 💋</p>
+        <label><input type="radio" name="q3" value="dec4"> Dec 4</label>
+        <label><input type="radio" name="q3" value="oct19"> October 19</label>
+        <label><input type="radio" name="q3" value="jan17"> Jan 17</label>
+        <button onclick="goToPage('page5')">Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 5 -->
+  <div id="page5" class="page">
+    <div id="messageBox" style="font-size: 26px; font-weight: bold; color: #fff; text-shadow: 2px 2px 4px #ff3399;"></div>
+    <button onclick="goToPage('page6')">Secret-a oru surprise iruku 💝</button>
+  </div>
+
+  <!-- Page 6 -->
+  <div id="page6" class="page">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+      <img src="gift.jpeg" style="width: 600px;height:600px; border-radius: 20px; cursor: pointer; border: 5px solid white; box-shadow: 0 0 15px pink;" onclick="showPopup()" />
+    </div>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">Unakku oru cute surprise 😘<br>Nan dhaan un kadhal gift 💘</div>
+  </div>
+
+  <script>
+    function checkName() {
+      const input = document.getElementById("nameInput").value.toLowerCase().trim();
+      if (input === "gowtham") {
+        goToPage("page2");
+        startEmojis();
+      } else {
+        alert("Seri ah sollu thoppakutty 😜");
+      }
+    }
+
+    function goToPage(pageId) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+      if (pageId === "page5") showMessageLineByLine();
+    }
+
+    function startEmojis() {
+      const emojis = ["❤️", "💖", "💌", "😘", "💘"];
+      const container = document.getElementById("emojiContainer");
+      for (let i = 0; i < 35; i++) {
+        const span = document.createElement("span");
+        span.className = "emoji";
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.fontSize = Math.random() * 30 + 20 + "px";
+        span.style.top = "-50px";
+        span.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+        span.style.animationDelay = Math.random() * 2 + "s";
+        span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        container.appendChild(span);
+        setTimeout(() => span.remove(), 6000);
+      }
+    }
+
+    function checkQA(qNumber) {
+      const selected = document.querySelector(`input[name="q${qNumber}"]:checked`);
+      if (!selected) return alert("Choose an answer thoppakutty 😘");
+
+      const answers = { 1: "april", 2: "kiss" };
+
+      if (selected.value === answers[qNumber]) {
+        document.getElementById(`q${qNumber}`).classList.remove("active");
+        document.getElementById(`q${qNumber + 1}`).classList.add("active");
+      } else {
+        alert("Wrong answerthoppakutty 😜");
+      }
+    }
+
+    const messageLines = [
+      "🎉 Happy Birthday Thangapulla! 🎂",
+      "💖 You are the sweetest part of my life.",
+      "😘 Every moment with you feels magical.",
+      "🎁 This isn't just a gift — it's my love.",
+      "❤️ Forever yours, Gowtham."
+    ];
+
+    function showMessageLineByLine() {
+      const box = document.getElementById("messageBox");
+      box.innerHTML = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < messageLines.length) {
+          const line = document.createElement("div");
+          line.style.margin = "10px 0";
+          line.textContent = messageLines[i];
+          box.appendChild(line);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 2000);
+    }
+
+    function showPopup() {
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function createStars(count) {
+      const container = document.getElementById("starContainer");
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.top = Math.random() * 100 + "%";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.animationDuration = (1 + Math.random() * 2) + "s";
+        container.appendChild(star);
+      }
+    }
+    createStars(100);
+  </script>
+</body>
+</html>
